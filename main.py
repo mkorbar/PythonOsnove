@@ -1,29 +1,20 @@
+import random
 
-# string
-mood = input("What's your mood \"bro\" ")
-age = int(input("what's your age"))
+secret = random.randint(1, 10)
+st_poizkusa = 0
 
-if mood == 'sad' or age >= 18:
-    reason = input('why are you sad')
-    if reason == 'corona':
-        print('It will pass soon')
-    print('Please don\'t cry')
-elif mood == 'happy':
-    print('I\'m happy that you\'re happy')
-else:
-    print("I don't understand you")
+while True:
+    st_poizkusa = st_poizkusa + 1
 
-print("You're {0}".format(mood))
+    guess = int(input("Guess the secret number (between 1 and 10): "))
 
+    if guess == secret:
+        print("You've guessed it - congratulations! It's number {0}. This was your {1} attempt."
+              .format(secret, st_poizkusa))
+        break
+    elif guess > secret:
+        print('Your attempt ({0}) is too high. This was your {1} attempt.'.format(guess, st_poizkusa))
+    else:
+        print("Your attempt ({0}) is too low. This was your {1} attempt.".format(guess, st_poizkusa))
 
-# # int, float
-# birth_year = int(input("what's your birth year"))
-# age = 2021-birth_year
-# print("you're {0} years old".format(age))
-#
-# # boolean
-# trenutnco_je_dan = False
-# zelim_si_na_pivo_v_bar = True
-#
-# # None type
-# prazna_vrednos = None
+print('Igra je koncana')
