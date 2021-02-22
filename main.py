@@ -1,40 +1,24 @@
-import json
-import random
-import datetime
+from functions import get_top_scores, play_game
 
-secret = random.randint(1, 10)
-st_poizkusa = 0
-
-name = input('Hi! What\'s your name?')
-
-with open('high_score.txt', 'r') as high_score_fp:
-    score_list = json.loads(high_score_fp.read())
-    print('Past results are:')
-    score_list.sort()
-    print(score_list)
+user_name = input('Hi! What\'s your name? ')
 
 while True:
-    st_poizkusa = st_poizkusa + 1
+    selection = input("Would you like to A) play a new game, B) see the best scores, or C) quit? ").upper()
 
-    guess = int(input("Guess the secret number (between 1 and 10): "))
-
-    if guess == secret:
-        print("You've guessed it - congratulations! It's number {0}. This was your {1} attempt."
-              .format(secret, st_poizkusa))
-        game_data = {
-            'time': str(datetime.datetime.now()),
-            'player name': name,
-            'score': st_poizkusa
-        }
-        score_list.append(game_data)
-
-        with open('high_score.txt', 'w') as high_score_fp:
-            high_score_fp.write(json.dumps(score_list, indent=4))
-
+    if selection == "A":
+        play_game(name=user_name)
+    elif selection == "B":
+        for score_dict in get_top_scores():
+            print(
+                "\t{0} finished the game with {1} attempts. The game was played on {2}"
+                .format(
+                    score_dict["player_name"],
+                    score_dict["attempts"],
+                    score_dict["date"].split('.')[0])
+            )
+    elif selection == "C":
         break
-    elif guess > secret:
-        print('Your attempt ({0}) is too high. This was your {1} attempt.'.format(guess, st_poizkusa))
     else:
-        print("Your attempt ({0}) is too low. This was your {1} attempt.".format(guess, st_poizkusa))
+        print('Unknown command. Please enter A, B or C')
 
 print('Igra je koncana')
